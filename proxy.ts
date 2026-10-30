@@ -2,6 +2,7 @@ import { clerkMiddleware } from "@clerk/nextjs/server"
 
 export default clerkMiddleware(async (auth, request) => {
   if (
+    request.nextUrl.pathname === "/" ||
     request.nextUrl.pathname === "/test" ||
     request.nextUrl.pathname.startsWith("/test/")
   ) {
