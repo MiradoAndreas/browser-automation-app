@@ -1,4 +1,5 @@
-import { AppSidebar, DashboardSidebarTrigger } from "@/components/app-sidebar"
+import { AppSidebar } from "@/components/app-sidebar"
+import { DashboardSidebarTrigger } from "@/components/dashboard-sidebar-trigger"
 import { SidebarProvider } from "@/components/ui/sidebar"
 
 export default function DashboardLayout({
