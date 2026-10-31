@@ -8,6 +8,14 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+# React Flow
+
+Before any React Flow usage, including using or changing its APIs, components,
+hooks, or integration patterns, fetch and search https://reactflow.dev/llms.txt
+and follow the relevant documentation links. Base the implementation on those
+docs rather than training data. Repeat this documentation lookup for every
+React Flow task.
+
 # Database types
 
 Derive database types from the Drizzle schema — never hand-write custom or partial
