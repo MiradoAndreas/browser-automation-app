@@ -19,7 +19,7 @@ export async function runWorkflowAction() {
     message: "Workflow started, trigger from right-sidebar",
   })
 
-  return { runId: handle.id }
+  return { runId: handle.id, publicAccessToken: handle.publicAccessToken }
 }
 
 export async function createWorkflowAction(name: string) {
