@@ -1,20 +1,25 @@
 "use client"
 
-import { useCallback } from "react"
+import { useCallback, useSyncExternalStore } from "react"
+import { useTheme } from "next-themes"
 import {
   addEdge,
-  Background,
   Controls,
   MiniMap,
   ReactFlow,
   useEdgesState,
   useNodesState,
   type Edge,
+  ConnectionLineType,
   type Node,
   type OnConnect,
 } from "@xyflow/react"
 
 import "@xyflow/react/dist/style.css"
+
+const subscribe = () => () => {}
+const getSnapshot = () => true
+const getServerSnapshot = () => false
 
 const initialNodes: Node[] = [
   {
@@ -42,6 +47,12 @@ const initialEdges: Edge[] = [
 ]
 
 export function Canvas() {
+  const { resolvedTheme } = useTheme()
+  const mounted = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot
+  )
   const [nodes, , onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
   const onConnect = useCallback<OnConnect>(
@@ -58,9 +69,24 @@ export function Canvas() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         fitView
-        colorMode="system"
+        colorMode={mounted && resolvedTheme === "dark" ? "dark" : "light"}
+        connectionLineType={ConnectionLineType.SmoothStep}
+        connectionLineStyle={{ stroke: "var(--border)" }}
+        defaultEdgeOptions={{
+          type: "smoothstep",
+          style: {
+            stroke: "var(--border)",
+          },
+        }}
+        style={
+          {
+            "--xy-background-color": "var(--background)",
+            "--xy-edge-stroke-width": 2,
+            "--xy-connectionline-stroke-width": 2,
+          } as React.CSSProperties
+        }
+        maxZoom={1.5}
       >
-        <Background />
         <Controls />
         <MiniMap />
       </ReactFlow>
