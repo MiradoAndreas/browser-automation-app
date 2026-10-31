@@ -1,9 +1,15 @@
-import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
 
 export const workflows = pgTable("workflows", {
   id: uuid("id").defaultRandom().primaryKey(),
+  orgId: text("org_id").notNull(),
   name: text("name").notNull(),
-  description: text("description"),
-  enabled: boolean("enabled").default(false).notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
 })
+
+export type Workflow = typeof workflows.$inferSelect
